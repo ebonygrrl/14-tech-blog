@@ -16,7 +16,7 @@
     <header>
         <section class="container">
             <div class="row">
-                <div class="col-md-3 site-name">The Tech Blog</div>
+                <div class="col-md-3 site-name"><h1>The Tech Blog</h1></div>
                 <div class="col-md-9">
                     <nav>
                         <ul>
@@ -35,10 +35,10 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <!-- Start -->
+                    <!-- / | View All Posts -->
                     <div class="card">
                         <div class="card-header">
-                            Blog Post Title
+                            <h2>Blog Post Title</h2>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Special title treatment</h5>
@@ -62,7 +62,7 @@
                                     <input class="form-control" id="password" type="password" name="password" required>
                                     <label for="password">Password</label>
                                 </div>
-                                <button class="btn btn-primary" type="submit">Login</button>
+                                <button class="btn btn-primary" id="submit-login">Login</button>
                             </form>
                             <p class="text-center">Sign up here.</p>
                         </div>
@@ -71,10 +71,10 @@
                     <!-- Sign Up -->
                     <div class="card">
                         <div class="card-header">
-                            <h2>Login</h2>
+                            <h2>Sign Up</h2>
                         </div>
                         <div class="card-body">
-                            <form class="form login-form">
+                            <form class="form signup-form">
                                 <div class="form-floating mb-3">
                                     <input class="form-control" id="username" type="text" name="email" required>
                                     <label for="email">Username</label>
@@ -83,11 +83,79 @@
                                     <input class="form-control" id="password" type="password" name="password" required>
                                     <label for="password">Password</label>
                                 </div>
-                                <button class="btn btn-primary" type="submit">Login</button>
+                                <button class="btn btn-primary" id="submit-signup">Sign Up!</button>
                             </form>
-                            <p class="text-center">Sign up here.</p>
+                            <p class="text-center">Login instead</p>
                         </div>
                     </div>
+                    
+                    <!-- Your Dashboard | Home -->
+                    <button class="btn btn-primary">+ New Post</button>
+
+                    <!-- Your Dashboard | Create New Post -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Create New Post</h2>
+                        </div>
+                        <div class="card-body">
+                            <form class="form new-post-form">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="post-title" type="text" name="title">
+                                    <label for="title">Title</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="post-textarea" type="textarea" name="content">
+                                    <label for="content">Content</label>
+                                </div>
+                                <button class="btn btn-primary" id="submit-post">Create</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- + New Post button here -->
+
+                    <!-- Your Dashboard | Post submission link here -->
+
+                    <!-- Your Dashboard | Update Post -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Edit Post</h2>
+                        </div>
+                        <div class="card-body">
+                            <form class="form edit-post-form">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="post-title" type="text" name="title">
+                                    <label for="title">Title</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="post-textarea" type="textarea" name="content">
+                                    <label for="content">Content</label>
+                                </div>
+                                <button class="btn btn-primary" id="submit-update-post">Update Post</button>
+                                <button class="btn btn-primary" id="delete-post">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Your Dashboard | Updated post link here -->
+
+                    <!-- post/:id | Submit post comment -->
+                    <div class="card">
+                        <div class="card-header">
+                            &nbsp;
+                        </div>
+                        <div class="card-body">
+                            <form class="form add-comment-form">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="comment-textarea" type="textarea" name="comment">
+                                    <label for="comment">Comment</label>
+                                </div>
+                                <button class="btn btn-primary" id="submit-comment">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- on submit, replace form and display comment, user's name and date -->
+
+
                     <!-- end col -->
                 </div>
         </section>
