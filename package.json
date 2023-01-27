@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/ebonygrrl/14-tech-blog#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "sequelize": "^6.28.0",
+    "sqlite3": "^5.1.4"
   }
 }
