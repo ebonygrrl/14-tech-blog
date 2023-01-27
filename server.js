@@ -5,7 +5,6 @@ const express = require('express');
 const sequelize = require('./configuration/connection');
 const port = process.env.port || 3001;
 
-
 const app = express();
 
 app.get('/', function (req, res) {
