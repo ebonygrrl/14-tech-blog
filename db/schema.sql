@@ -15,7 +15,6 @@ CREATE TABLE `user` (
 CREATE TABLE `post` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `content` VARCHAR(150),
-  `time` DATETIME NOT NULL,
   `user_id` INT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (user_id) 
@@ -27,7 +26,6 @@ CREATE TABLE `post` (
 CREATE TABLE `comments` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `comment` VARCHAR(150) NOT NULL,
-    `time` DATETIME NOT NULL,
     `user_id` INT NULL,
     `post_id` INT NULL,
     PRIMARY KEY (`id`),

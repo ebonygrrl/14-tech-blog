@@ -15,31 +15,34 @@ Comments.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  time: {
-    type: DataTypes.DATE,
-    allowNull: false
-  },
   user_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: "User",
+      model: "user",
       key: "id"
     },
   },
   post_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: "Post",
+      model: "post",
       key: "id"
     },
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull:  true
+  },  
+  updated_at: {
+    type: DataTypes.DATE,
+    allowNull:  true
   }
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance
-  modelName: 'Comments', // We need to choose the model name
+  modelName: 'comments', // We need to choose the model name
   freezeTableName: true, // Enforcing table name to be equal to the model name
-  timestamps: false,
-  underscored: true,
+  underscored: true
 });
 
 module.exports = Comments;

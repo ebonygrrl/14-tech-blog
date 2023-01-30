@@ -15,24 +15,27 @@ Post.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  time: {
-    type: DataTypes.DATE,
-    allowNull: false
-  },
   user_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: "User",
+      model: "user",
       key: "id"
     },
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull:  true
+  },  
+  updated_at: {
+    type: DataTypes.DATE,
+    allowNull:  true
   }
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance
-  modelName: 'Post', // We need to choose the model name
+  modelName: 'post', // We need to choose the model name
   freezeTableName: true, // Enforcing table name to be equal to the model name
-  timestamps: false,
-  underscored: true,
+  underscored: true
 });
 
 module.exports = Post;

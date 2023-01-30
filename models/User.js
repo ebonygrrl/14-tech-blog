@@ -21,15 +21,14 @@ User.init({
     allowNull: false,
     validate: {
       len: [8],
-    },
+    }
   }
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance
-  modelName: 'User', // We need to choose the model name
+  modelName: 'user', // We need to choose the model name
   freezeTableName: true, // Enforcing table name to be equal to the model name
-  timestamps: false,
-  underscored: true,
+  timestamps: false // disable createdat/updatedat fields
 });
 
 module.exports = User;
