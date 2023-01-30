@@ -41,10 +41,7 @@ User.init({
     },
     beforeUpdate: async (updatedUser) => {
       try {
-        updatedUser.password = await bcrypt.hash(
-          updatedUser.password,
-          10
-        );
+        updatedUser.password = await bcrypt.hash(updatedUser.password, 10);
         return updatedUser;
       } catch (err) {
         console.log(err);
