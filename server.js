@@ -2,11 +2,11 @@
 const express = require('express');
 
 // import sequelize connection
-const sequelize = require('./configuration/connection');
+const sequelize = require('./config/connection');
 const port = process.env.port || 3001;
 
 // connect routes
-const routes = require('./routes');
+const routes = require('./controllers');
 
 const app = express();
 
