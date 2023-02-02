@@ -1,9 +1,11 @@
 const router = require('express').Router();
-const User = require('../../models/User');
+const Post = require('../../models/Post');
 
-// create new user
-router.post('/signup', async (req, res) => {
-  await User.create(req.body)
+// create new post
+router.post('/new', async (req, res) => {
+  // get user id from session
+
+  await Post.create(req.body)
   .then((data) => {
     console.log(data)
     res.json(data);
@@ -14,9 +16,11 @@ router.post('/signup', async (req, res) => {
   });
 });
 
-// user login
-router.post('/signin', async (req, res) => {
-  await User.findOne(req.body.username)
+// update post
+router.put('/edit', async (req, res) => {
+  // get user id from session
+
+  await Post.create(req.body)
   .then((data) => {
     console.log(data)
     res.json(data);
