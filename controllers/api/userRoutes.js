@@ -1,39 +1,47 @@
 const router = require('express').Router();
-//const User = require('../../models/User');
+const { User } = require('../../models');
 
 // create new user
 router.post('/signup', async (req, res) => {
-  try {
-  console.log("body:", req.body);
-  res.status(200).json(req.body);
-} catch (err) {
-  console.log(err);
-  res.status(500).json(err);
-}
-  // username: req.body.username,
-  // password: req.body.password
-  // await User.create(req.body)
-  // .then((data) => {
-  //   console.log(data)
-  //   res.json(data);
-  // })
-  // .catch((err) => {
-  //   res.status(400).json(err);
-  //   console.log(err);
-  // });
+
+  await User.create(req.body)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+      console.log(err);
+    });
 });
 
-// user login
-// router.post('/login', async (req, res) => {
-//   await User.findOne(req.body.username)
-//   .then((data) => {
-//     console.log(data)
-//     res.json(data);
-//   })
-//   .catch((err) => {
-//     res.status(400).json(err);
-//     console.log(err);
-//   });
-// });
+//user login
+router.post('/login', async (req, res) => {
+  console.log(req.body);
+  await User.findOne({
+    where: { username: req.body.username }
+  })
+    .then((data) => {
+      console.log(data);
+      if(!data.username) {
+        res.status(400).json({ message: 'You have entered the wrong username or password. Please try again!' });
+        return;
+      } 
+  
+      const validPassword = data.checkPassword(req.body.password);
+      
+      if (!validPassword) {
+        res.status(400).json({ message: 'You have entered the wrong username or password. Please try again!' });  
+        return;
+      } 
+
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+      console.log(err);
+    });
+
+    return false;
+});
 
 module.exports = router;
