@@ -1,6 +1,7 @@
 const loginForm = async (e) => {
   e.preventDefault();
 
+  const msg = document.querySelector('.message');
   const formData = new FormData(e.currentTarget);
 
   const result = await fetch('/api/user/login', {
@@ -9,13 +10,12 @@ const loginForm = async (e) => {
     headers: { 'Content-Type': 'application/json' }
   });
 
-  console.log(result);
+  const json = await result.json();
 
   if (result.ok) {
-    console.log('200');
     //document.location.replace('/dashboard');
   } else {
-    //alert('Failed to sign up.');
+    msg.textContent = json.message;
   }
 };
 

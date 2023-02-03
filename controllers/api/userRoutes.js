@@ -1,28 +1,29 @@
 const router = require('express').Router();
 const { User } = require('../../models');
+const validSignUp = require('../../utils/validationErrors');
 
 // create new user
 router.post('/signup', async (req, res) => {
 
   await User.create(req.body)
     .then((data) => {
-      res.status(200).json(data);
+      
+      console.log(data);
+      res.status(200).json(data.message);
     })
-    .catch((err) => {
-      res.status(400).json(err);
+    .catch(validSignUp, (err) => {
       console.log(err);
     });
 });
 
 //user login
 router.post('/login', async (req, res) => {
-  console.log(req.body);
+  
   await User.findOne({
     where: { username: req.body.username }
   })
     .then((data) => {
-      console.log(data);
-      if(!data.username) {
+      if(data === null) {
         res.status(400).json({ message: 'You have entered the wrong username or password. Please try again!' });
         return;
       } 
