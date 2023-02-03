@@ -3,14 +3,14 @@ const path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
 
-// import sequelize connection
-const sequelize = require('./config/connection');
-const port = process.env.port || 3001;
-
 // connect routes
 const routes = require('./controllers');
 
+// import sequelize connection
+const sequelize = require('./config/connection');
+
 const app = express();
+const port = process.env.port || 3001;
 
 const hbs = exphbs.create({ /* config */ });
 app.engine('handlebars', hbs.engine);
@@ -22,6 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
-app.listen(port, () => {
-    console.log(`App is listening on port ${port}`);
-});
+//sequelize.sync({ force: false }).then(() => {
+  app.listen(port, () => console.log(`App is listening on port ${port}`));
+//});
