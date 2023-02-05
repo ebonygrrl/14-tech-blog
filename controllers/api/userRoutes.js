@@ -35,6 +35,10 @@ router.post('/login', async (req, res) => {
         return;
       } 
 
+      req.session.save(function(err) {
+        // session saved
+      })
+
       res.status(200).json(data);
     })
     .catch((err) => {
@@ -43,6 +47,12 @@ router.post('/login', async (req, res) => {
     });
 
     return false;
+});
+
+router.delete('/logout', (req, res) => {
+  req.session.destroy(function(err) {
+    // cannot access session here
+  });
 });
 
 module.exports = router;

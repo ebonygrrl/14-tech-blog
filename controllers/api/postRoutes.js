@@ -17,7 +17,22 @@ router.post('/new', async (req, res) => {
 });
 
 // update post
-router.put('/edit', async (req, res) => {
+router.put('/:id/update', async (req, res) => {
+  // get user id from session
+
+  await Post.create(req.body)
+  .then((data) => {
+    console.log(data)
+    res.json(data);
+  })
+  .catch((err) => {
+    res.status(400).json(err);
+    console.log(err);
+  });
+});
+
+// delete post
+router.post('/:id/delete', async (req, res) => {
   // get user id from session
 
   await Post.create(req.body)
