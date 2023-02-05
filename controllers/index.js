@@ -23,4 +23,12 @@ router.get('/dashboard/new', (req, res) => {
     res.render('new-post', {title: 'Create New Post | The Tech Blog'});
 });
 
+router.get('/dashboard/edit', (req, res) => {
+    res.render('edit-post', {title: 'Edit Post | The Tech Blog'});
+});
+
+router.get('/post/:id', (req, res) => {
+    res.render('comment', {title: 'Edit Post | The Tech Blog'});
+});
+
 module.exports = router;
