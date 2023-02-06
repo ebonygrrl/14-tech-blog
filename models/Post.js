@@ -21,10 +21,11 @@ Post.init({
   },
   user_id: {
     type: DataTypes.INTEGER,
-    references: {
-      model: "user",
-      key: "id"
-    },
+    allowNull: false,
+    // references: {
+    //   model: "user",
+    //   key: "id"
+    // },
   }
 }, {
   // Other model options go here

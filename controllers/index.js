@@ -5,7 +5,7 @@ router.use('/api', apiRoutes);
 
 // home page
 router.get('/', (req, res) => {
-    console.log(req.session.loggedIn);
+    // console.log(req.session.loggedIn);
     res.render('home', {title: 'Home | The Tech Blog', loggedIn: req.session.loggedIn});
 });
 
@@ -21,27 +21,27 @@ router.get('/login', (req, res) => {
 
 // all post dashboard
 router.get('/dashboard', (req, res) => {
-    res.render('dashboard', {title: 'Dashboard | The Tech Blog'});
+    res.render('dashboard', {title: 'Dashboard | The Tech Blog', loggedIn: req.session.loggedIn});
 });
 
 // new post
 router.get('/dashboard/new', (req, res) => {
-    res.render('new-post', {title: 'Create New Post | The Tech Blog'});
+    res.render('new-post', {title: 'Create New Post | The Tech Blog', loggedIn: req.session.loggedIn});
 });
 
 // edit post
 router.get('/dashboard/:id/edit', (req, res) => {
-    res.render('edit-post', {title: 'Edit Post | The Tech Blog'});
+    res.render('edit-post', {title: 'Edit Post | The Tech Blog', loggedIn: req.session.loggedIn});
 });
 
 // comment on post
 router.get('/post/:id', (req, res) => {
-    res.render('comment', {title: 'Edit Post | The Tech Blog'});
+    res.render('comment', {title: 'Edit Post | The Tech Blog', loggedIn: req.session.loggedIn});
 });
 
 // delete post
 router.get('/dashboard/:id/delete', async (req, res) => {
-    res.render();
+    res.render({loggedIn: req.session.loggedIn});
 });
 
 // logout

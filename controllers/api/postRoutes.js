@@ -6,7 +6,13 @@ router.post('/new', async (req, res) => {
   // get user id from session
   console.log(req.session);
 
-  await Post.create(req.body)
+  const post = {
+    title: req.body.title,
+    content: req.body.content,
+    user_id: req.session.userId,
+  };
+
+  await Post.create(post)
   .then((data) => {
     console.log(data)
     res.json(data);

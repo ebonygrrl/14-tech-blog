@@ -22,17 +22,20 @@ const hbs = exphbs.create({ /* config */ });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
+const myStore = new SequelizeStore({
+  db: sequelize,
+});
+
 const sess = { 
   secret: 'process.env.SESSION_SECRET', 
   resave: true,
   saveUninitialized: false,
-  cookie: { maxAge: 60000 },
-  store: new SequelizeStore({
-    db: sequelize,
-  })
+  cookie: {}, //{ maxAge: 3600000 },
+  store: myStore
 };
 
 app.use(session(sess));
+myStore.sync();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

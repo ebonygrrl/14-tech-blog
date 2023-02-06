@@ -27,12 +27,12 @@ router.post('/signup', async (req, res) => {
 
 // user login
 router.post('/login', async (req, res) => {
-  console.log(req.body, '..... session.....', req.session,'..... cookies ......', req.cookies);
   
   await User.findOne({
     where: { username: req.body.username }
   })
     .then((data) => {
+      // console.log(data);
       if(data === null) {
         res.status(400).json({ message: 'You have entered the wrong username or password. Please try again!' });
         return;
