@@ -7,9 +7,8 @@ const sequelize = process.env.JAWSDB_URL
   : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
       host: 'localhost',
       dialect: 'mysql',
-      charset: 'utf8',
       dialectOptions: {
-        useUTC: false, //for reading from database
+        //useUTC: false, //for reading from database
         dateStrings: true,
       },
       timezone: '+05:30' //for writing to database

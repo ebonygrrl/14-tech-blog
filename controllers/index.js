@@ -6,9 +6,24 @@ const withAuth = require('../utils/auth');
 router.use('/api', apiRoutes);
 
 // home page
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     // console.log(req.session.loggedIn);
-    res.render('home', {title: 'Home | The Tech Blog', loggedIn: req.session.loggedIn});
+    
+    await Post.findAll({
+        include: [
+            { model: User },
+            { model: Comments }
+        ],
+        order: [['created_at', 'DESC']]
+    })
+    .then(async data => {
+        //console.log(data);
+        const posts = data.map( post => post.get({ plain: true }) );
+        console.log(posts);
+        const user = await User.findOne({where: posts.user_id});
+        console.log(user.username);
+        res.render('home', {title: 'Home | The Tech Blog', loggedIn: req.session.loggedIn, posts, user});
+    });
 });
 
 // sign up page

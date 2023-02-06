@@ -23,8 +23,8 @@ Post.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "user",
-      key: "id"
+      model: 'User',
+      key: 'id'
     },
   }
 }, {
