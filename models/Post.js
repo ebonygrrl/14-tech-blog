@@ -22,10 +22,10 @@ Post.init({
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    // references: {
-    //   model: "user",
-    //   key: "id"
-    // },
+    references: {
+      model: "user",
+      key: "id"
+    },
   }
 }, {
   // Other model options go here
@@ -35,7 +35,7 @@ Post.init({
   underscored: true,
   timestamps: true,
   createdAt: 'created_at',
-  updatedAt: false
+  updatedAt: 'updated_at'
 });
 
 module.exports = Post;

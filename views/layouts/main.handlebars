@@ -20,14 +20,23 @@
                     <h1>The Tech Blog</h1>
                 </div>
                 <div class="col-md-9">
+                    {{#if loggedIn}}
                     <nav>
                         <ul>
                             <li><a href="/">Home</a></li>
                             <li><a href="/dashboard">Dashboard</a></li>
-                            <li><a href="/login">Login</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </nav>
+                    {{else}}
+                    <nav>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/signup">Sign Up</a></li>
+                        </ul>
+                    </nav>
+                    {{/if}}
                 </div>
             </div>
         </section>

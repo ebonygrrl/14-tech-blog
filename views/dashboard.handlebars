@@ -1,2 +1,8 @@
+                    {{#each posts as |post|}}
+                    {{> post}}
+                    {{/each}}
+
+                    {{#if loggedIn}}
                     <!-- Your Dashboard | Home -->
-                    <a href="/dashboard/new"><button class="btn btn-primary btn-lg">+ New Post</button></a>
+                    <a href="/dashboard/post/new"><button class="btn btn-primary btn-lg">+ New Post</button></a>
+                    {{/if}}

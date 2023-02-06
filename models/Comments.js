@@ -37,7 +37,7 @@ Comments.init({
   underscored: true,
   timestamps: true,
   createdAt: 'created_at',
-  updatedAt: 'updated_at'
+  updatedAt: false
 });
 
 module.exports = Comments;

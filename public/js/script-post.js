@@ -3,7 +3,7 @@ const newPostForm = async (e) => {
   
     const formData = new FormData(e.currentTarget);
   
-    const result = await fetch('/api/dashboard/new', {
+    const result = await fetch('/api/post/new', {
       method: 'POST',
       body: JSON.stringify(Object.fromEntries(formData)),
       headers: { 'Content-Type': 'application/json' }

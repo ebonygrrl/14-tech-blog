@@ -20,6 +20,13 @@ body {
   line-height: normal;
   background-color: var(--cultured);
 }
+
+h2 {
+  font-size: 22px;
+  line-height: normal;
+  margin-bottom: 0;
+}
+
 /* bootstrap mod */
 .container {
   width: 1000px;
