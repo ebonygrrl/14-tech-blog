@@ -34,10 +34,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
-// custom middleware
-const validSignUp = require('./utils/validationErrors');
-app.use(validSignUp);
-
 //sequelize.sync({ force: false }).then(() => {
   app.listen(port, () => console.log(`App is listening on port ${port}`));
 //});

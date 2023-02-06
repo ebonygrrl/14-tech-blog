@@ -1,40 +1,45 @@
-const newPostForm = document.querySelector('.new-post-form');
-const editPostForm = document.querySelector('.edit-post-form');
-
-// newPostForm.addEventListener('submit', async (e) => {          
+const newPostForm = async (e) => {          
+    e.preventDefault();
+  
+    const formData = new FormData(e.currentTarget);
+  
+    const result = await fetch('/api/dashboard/new', {
+      method: 'POST',
+      body: JSON.stringify(Object.fromEntries(formData)),
+      headers: { 'Content-Type': 'application/json' }
+    });
+  
+    if (result.ok) {
+      console.log('200');
+      //document.location.replace('/');
+    } else {
+      console.log('Failed to post.');
+    }  
+};
+    
+// const editPostForm = async (e) => {          
 //     e.preventDefault();
   
-//     const formData = new FormData(newPostForm);
+//     const formData = new FormData(e.currentTarget);
   
-//     const result = await fetch('/api/post/new', {
+//     const result = await fetch('/api/dashboard/:id/update', {
 //       method: 'POST',
-//       body: formData,
-//       header: { 'Content-Type': 'multipart/form-data' }
+//       body: JSON.stringify(Object.fromEntries(formData)),
+//       headers: { 'Content-Type': 'application/json' }
 //     });
   
 //     if (result.ok) {
 //       console.log('200');
-//       document.location.replace('/');
+//       //document.location.replace('/');
 //     } else {
-//       alert('Failed to sign up.');
+//         console.log('Failed to update post.');
 //     }  
-// });
+// };
 
-// editPostForm.addEventListener('submit', async (e) => {          
-//     e.preventDefault();
-  
-//     const formData = new FormData(editPostForm);
-  
-//     const result = await fetch('/api/post/edit', {
-//       method: 'POST',
-//       body: formData,
-//       header: { 'Content-Type': 'multipart/form-data' }
-//     });
-  
-//     if (result.ok) {
-//       console.log('200');
-//       document.location.replace('/');
-//     } else {
-//       alert('Failed to sign up.');
-//     }  
-// });
+document
+    .querySelector('.new-post-form')
+    .addEventListener('submit', newPostForm);
+
+// document
+//     .querySelector('.edit-post-form')
+//     .addEventListener('submit', editPostForm); 

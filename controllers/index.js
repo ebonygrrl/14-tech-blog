@@ -5,7 +5,8 @@ router.use('/api', apiRoutes);
 
 // home page
 router.get('/', (req, res) => {
-    res.render('home', {title: 'Home | The Tech Blog'});
+    console.log(req.session.loggedIn);
+    res.render('home', {title: 'Home | The Tech Blog', loggedIn: req.session.loggedIn});
 });
 
 // sign up page

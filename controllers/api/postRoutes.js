@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const Post = require('../../models/Post');
+const { Post } = require('../../models');
 
 // create new post
 router.post('/new', async (req, res) => {
   // get user id from session
+  console.log(req.body, req.session);
 
   await Post.create(req.body)
   .then((data) => {

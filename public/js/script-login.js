@@ -4,18 +4,18 @@ const loginForm = async (e) => {
   const msg = document.querySelector('.message');
   const formData = new FormData(e.currentTarget);
 
-  const result = await fetch('/api/user/login', {
+  const response = await fetch('/api/user/login', {
     method: 'POST',
     body: JSON.stringify(Object.fromEntries(formData)),
     headers: { 'Content-Type': 'application/json' }
   });
 
-  const json = await result.json();
+  const result = await response.json();
 
-  if (result.ok) {
-    //document.location.replace('/dashboard');
+  if (response.ok) {
+    document.location.replace('/dashboard');
   } else {
-    msg.textContent = json.message;
+    msg.textContent = result.message;
   }
 };
 

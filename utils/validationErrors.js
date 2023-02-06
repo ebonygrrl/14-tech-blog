@@ -1,9 +1,9 @@
-const validSignUp = (req, res, next) => {
-    console.log('hello', req);
+const validationErrors = (req, res, next) => {
     const messages = {};
+    let message;
     //if (req instanceof ValidationError) {
         req.errors.forEach((error) => {
-            let message;
+            //let message;
             switch (error.validatorKey) {
                 case 'isEmail':
                     message = 'Please enter a valid email';
@@ -13,9 +13,9 @@ const validSignUp = (req, res, next) => {
                     break;
                 case 'len':
                     if (error.validatorArgs[0] === error.validatorArgs[1]) {
-                        message = 'Use ' + error.validatorArgs[0] + ' characters';
+                        message = 'Please choose a password with ' + error.validatorArgs[0] + ' characters';
                     } else {
-                        message = 'Use between ' + error.validatorArgs[0] + ' and ' + error.validatorArgs[1] + ' characters';
+                        message = 'Please choose a password between ' + error.validatorArgs[0] + ' and ' + error.validatorArgs[1] + ' characters';
                     }
                     break;
                 case 'min':
@@ -31,14 +31,14 @@ const validSignUp = (req, res, next) => {
                     message = 'Please complete this field';
                     break;
                 case 'not_unique':
-                    message = error.value + ' is taken. Please choose another one';
+                    message = error.value + ' is taken. Please choose another username.';
                     error.path = error.path.replace("_UNIQUE", "");
             }
             messages[error.path] = message;
         });
     //}
     
-    return messages;
+    return message;
 }
 
-module.exports = validSignUp;
+module.exports = validationErrors;

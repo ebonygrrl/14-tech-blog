@@ -1,22 +1,31 @@
 const router = require('express').Router();
 const { User } = require('../../models');
-const validSignUp = require('../../utils/validationErrors');
+
+// validation middleware
+const validationErrors = require('../../utils/validationErrors');
 
 // create new user
 router.post('/signup', async (req, res) => {
 
   await User.create(req.body)
-    .then((data) => {
+    .then((data) => {     
+
+      req.session.save(() => {
+        req.session.loggedIn = true;
+        //console.log(data);
+        res.status(200).json(data);
+      });
       
-      console.log(data);
-      res.status(200).json(data.message);
     })
-    .catch(validSignUp, (err) => {
-      console.log(err);
+    .catch((err) => {
+      const errors = validationErrors(err);
+      if (errors) {
+        res.status(422).json(errors);
+      }
     });
 });
 
-//user login
+// user login
 router.post('/login', async (req, res) => {
   
   await User.findOne({
@@ -35,24 +44,28 @@ router.post('/login', async (req, res) => {
         return;
       } 
 
-      req.session.save(function(err) {
-        // session saved
-      })
-
-      res.status(200).json(data);
+      req.session.save(() => {
+        req.session.loggedIn = true;
+  
+        res.status(200).json({ user: data, message: 'You are now logged in!' });
+      });
     })
     .catch((err) => {
       res.status(400).json(err);
       console.log(err);
     });
-
-    return false;
 });
 
-router.delete('/logout', (req, res) => {
-  req.session.destroy(function(err) {
-    // cannot access session here
-  });
+// user logout
+router.post('/logout', (req, res) => {
+  // When the user logs out, destroy the session
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
 });
 
 module.exports = router;

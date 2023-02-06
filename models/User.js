@@ -14,17 +14,20 @@ User.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
+    unique: true
   },
   username: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true,
+    notEmpty: true
   },
   password: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      len: [8],
+      len: [8,16]
     }
   }
 }, {
