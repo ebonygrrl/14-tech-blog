@@ -6,6 +6,9 @@ const exphbs = require('express-handlebars');
 // session middleware
 const session = require('express-session');
 
+// initalize sequelize with session store
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 // connect routes
 const routes = require('./controllers');
 
@@ -21,9 +24,12 @@ app.set('view engine', 'handlebars');
 
 const sess = { 
   secret: 'process.env.SESSION_SECRET', 
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 60000 }
+  resave: true,
+  saveUninitialized: false,
+  cookie: { maxAge: 60000 },
+  store: new SequelizeStore({
+    db: sequelize,
+  })
 };
 
 app.use(session(sess));
@@ -34,6 +40,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
-//sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   app.listen(port, () => console.log(`App is listening on port ${port}`));
-//});
+});

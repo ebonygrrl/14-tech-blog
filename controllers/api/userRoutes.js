@@ -12,7 +12,7 @@ router.post('/signup', async (req, res) => {
 
       req.session.save(() => {
         req.session.loggedIn = true;
-        //console.log(data);
+        req.session.userId = data.id;
         res.status(200).json(data);
       });
       
@@ -27,6 +27,7 @@ router.post('/signup', async (req, res) => {
 
 // user login
 router.post('/login', async (req, res) => {
+  console.log(req.body, '..... session.....', req.session,'..... cookies ......', req.cookies);
   
   await User.findOne({
     where: { username: req.body.username }
@@ -46,7 +47,7 @@ router.post('/login', async (req, res) => {
 
       req.session.save(() => {
         req.session.loggedIn = true;
-  
+        req.session.userId = data.id;  
         res.status(200).json({ user: data, message: 'You are now logged in!' });
       });
     })

@@ -44,4 +44,10 @@ router.get('/dashboard/:id/delete', async (req, res) => {
     res.render();
 });
 
+// logout
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
+
 module.exports = router;

@@ -11,6 +11,10 @@ Post.init({
     autoIncrement: true,
     primaryKey: true
   },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   content: {
     type: DataTypes.STRING,
     allowNull: false
@@ -21,21 +25,16 @@ Post.init({
       model: "user",
       key: "id"
     },
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    allowNull:  true
-  },  
-  updated_at: {
-    type: DataTypes.DATE,
-    allowNull:  true
   }
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance
   modelName: 'post', // We need to choose the model name
   freezeTableName: true, // Enforcing table name to be equal to the model name
-  underscored: true
+  underscored: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: false
 });
 
 module.exports = Post;

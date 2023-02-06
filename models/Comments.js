@@ -28,21 +28,16 @@ Comments.init({
       model: "post",
       key: "id"
     },
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    allowNull:  true
-  },  
-  updated_at: {
-    type: DataTypes.DATE,
-    allowNull:  true
   }
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance
   modelName: 'comments', // We need to choose the model name
   freezeTableName: true, // Enforcing table name to be equal to the model name
-  underscored: true
+  underscored: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
 module.exports = Comments;
