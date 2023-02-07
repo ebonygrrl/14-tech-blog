@@ -69,4 +69,15 @@ router.post('/logout', (req, res) => {
   }
 });
 
+// logout
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
+
+// wildcard
+router.get('*', (req, res) => {
+    res.redirect('/');
+});
+
 module.exports = router;
