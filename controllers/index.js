@@ -2,6 +2,7 @@ const router = require('express').Router();
 const apiRoutes = require('./api');
 const { User, Post, Comments } = require('../models');
 const withAuth = require('../utils/auth');
+const moment = require('moment'); 
 
 router.use('/api', apiRoutes);
 
@@ -19,9 +20,9 @@ router.get('/', async (req, res) => {
     .then(async data => {
         //console.log(data);
         const posts = data.map( post => post.get({ plain: true }) );
-        console.log(posts);
+        //console.log(posts);
         const user = await User.findOne({where: posts.user_id});
-        console.log(user.username);
+        //console.log(user.username);
         res.render('home', {title: 'Home | The Tech Blog', loggedIn: req.session.loggedIn, posts, user});
     });
 });
