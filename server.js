@@ -29,8 +29,8 @@ const myStore = new SequelizeStore({
 
 const sess = { 
   secret: 'process.env.SESSION_SECRET', 
-  resave: true,
-  saveUninitialized: false,
+  resave: false,
+  saveUninitialized: true,
   cookie: {}, //{ maxAge: 3600000 },
   store: myStore
 };

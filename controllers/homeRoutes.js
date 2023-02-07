@@ -1,3 +1,4 @@
+const router = require('express').Router();
 const { User, Post, Comments } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -15,13 +16,17 @@ router.get('/', async (req, res) => {
     .then(async data => {
         //console.log(data);
         const posts = data.map( post => post.get({ plain: true }) );
-        //console.log(posts);
+        console.log(posts);
         const user = await User.findOne({
-            where: posts.user_id, 
+            where: posts.user_id, // match post user id to user table id
             attributes: { exclude: ['password'] }
         });
         //console.log(user.username);
         res.render('home', {title: 'Home | The Tech Blog', loggedIn: req.session.loggedIn, posts, user});
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
     });
 });
 
@@ -52,10 +57,20 @@ router.get('/dashboard', withAuth, async (req, res) => {
         ],
         order: [['created_at', 'DESC']]
     })
-    .then(data => {
-        console.log(data);
+    .then(async data => {
+        //console.log(data);
         const posts = data.map( post => post.get({ plain: true }) );
-        res.render('dashboard', {title: 'Dashboard | The Tech Blog', loggedIn: req.session.loggedIn, posts});
+        console.log(posts);
+        const user = await User.findOne({
+            where: posts.user_id, // match post user id to user table id
+            attributes: { exclude: ['password'] }
+        });
+        //console.log(user.username);
+        res.render('dashboard', {title: 'Dashboard | The Tech Blog', loggedIn: req.session.loggedIn, posts, user});
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
     });
 });
 
@@ -70,11 +85,35 @@ router.get('/dashboard/post/:id/edit', withAuth, (req, res) => {
 });
 
 // comment on post
-router.get('/post/:id', withAuth, (req, res) => {
-    res.render('comment', {title: 'Edit Post | The Tech Blog', loggedIn: req.session.loggedIn});
+router.get('/post/:id', withAuth, async (req, res) => {
+    // post.findone by id
+    //console.log(req.params.id);
+    await Post.findByPk(req.params.id)
+    .then(async data => {
+        // console.log(data);
+        const post = {
+            userId: data.id,
+            postTitle: data.title,
+            content: data.content,
+            time: data.created_at
+        };
+        // const posts = data.map( post => post.get({ plain: true }) );
+        const user = await User.findOne({
+            where: data.user_id, // match post user id to user table id
+            attributes: { exclude: ['password'] }
+        });
+        console.log(user.username);
+        res.render('add-comment', {title: `${post.postTitle} | The Tech Blog`, loggedIn: req.session.loggedIn, post, user: user.username});
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
 
 // delete post
 router.get('/dashboard/:id/delete', withAuth, (req, res) => {
     res.render({loggedIn: req.session.loggedIn});
 });
+
+module.exports = router;
