@@ -1,19 +1,19 @@
 const addCommentForm = async (e) => {          
-    e.preventDefault();
+    e.preventDefault();    
+
+    const newWindow = window.location.pathname;
+    const path = newWindow.split('/').pop();
+    console.log(path);
   
-    const formData = new FormData(e.currentTarget);
+    const addComment = document.querySelector('#comment').value;
   
     const result = await fetch('/api/comment/new', {
       method: 'POST',
-      body: JSON.stringify(Object.fromEntries(formData)),
+      body: JSON.stringify({post_id:path, comment:addComment}),
       headers: { 'Content-Type': 'application/json' }
     });
 
     const response = await result.json();
-
-    const newWindow = window.location.pathname;
-    const path = newWindow.split('/', 2).pop();
-    console.log(path);
   
     if (result.ok) {
       document.location.replace('/');

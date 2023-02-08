@@ -4,7 +4,7 @@ const { Post } = require('../../models');
 // create new post
 router.post('/new', async (req, res) => {
   // get user id from session
-  console.log(req.session);
+  //console.log(req.session);
 
   const post = {
     title: req.body.title,

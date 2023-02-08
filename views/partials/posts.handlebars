@@ -1,7 +1,11 @@
                     <!-- / | View All Posts -->
                     <div class="card mb-3">
                         <div class="card-header">
+                            {{#if loggedIn}}
                             <h2><a href="/post/{{id}}">{{title}}</a> <span>Posted by {{user.username}} on {{format_date created_at}}</span></h2>
+                            {{else}}                            
+                            <h2>{{title}} <span>Posted by {{user.username}} on {{format_date created_at}}</span></h2>
+                            {{/if}}
                         </div>
                         <div class="card-body">
                             <p class="card-text">{{content}}

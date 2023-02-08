@@ -1,13 +1,15 @@
 const router = require('express').Router();
 const { User, Post, Comments } = require('../models');
+const { Op } = require('sequelize');
 const withAuth = require('../utils/auth');
+
+// NOTE: ADD DATA ATTRIBUTE TO HANDLEBARS TO STORE POST ID. ADD VARIABLE TO RES.RENDER.
 
 // home page
 router.get('/', async (req, res) => {
     // console.log(req.session.loggedIn);
-    console.log(req.session);
+
     await Post.findAll({
-        where: {user_id: req.session.userId},
         include: [
             { model: User },
             { model: Comments }
@@ -15,14 +17,14 @@ router.get('/', async (req, res) => {
         order: [['created_at', 'DESC']]
     })
     .then(async data => {
-        //console.log(data);
+        // console.log(data);
         const posts = data.map( post => post.get({ plain: true }) );
-        console.log(posts);
+        // console.log(posts);
         const user = await User.findOne({
             where: posts.user_id, // match post user id to user table id
             attributes: { exclude: ['password'] }
         });
-        //console.log(user.username);
+        // console.log(user.username);
         res.render('home', {title: 'Home | The Tech Blog', loggedIn: req.session.loggedIn, posts, user});
     })
     .catch(err => {
@@ -52,6 +54,7 @@ router.get('/login', (req, res) => {
 // all post dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
     await Post.findAll({
+        where: {user_id: req.session.userId},
         include: [
             { model: User, attributes: ['username'] },
             { model: Comments }
@@ -59,14 +62,14 @@ router.get('/dashboard', withAuth, async (req, res) => {
         order: [['created_at', 'DESC']]
     })
     .then(async data => {
-        //console.log(data);
+        // console.log(data);
         const posts = data.map( post => post.get({ plain: true }) );
-        console.log(posts);
+        // console.log(posts);
         const user = await User.findOne({
             where: posts.user_id, // match post user id to user table id
             attributes: { exclude: ['password'] }
         });
-        //console.log(user.username);
+        // console.log(user.username);
         res.render('dashboard', {title: 'Dashboard | The Tech Blog', loggedIn: req.session.loggedIn, posts, user});
     })
     .catch(err => {
