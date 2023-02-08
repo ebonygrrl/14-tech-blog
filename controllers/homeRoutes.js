@@ -5,8 +5,9 @@ const withAuth = require('../utils/auth');
 // home page
 router.get('/', async (req, res) => {
     // console.log(req.session.loggedIn);
-    
+    console.log(req.session);
     await Post.findAll({
+        where: {user_id: req.session.userId},
         include: [
             { model: User },
             { model: Comments }

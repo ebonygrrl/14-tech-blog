@@ -1,20 +1,27 @@
-const addCommentForm = document.querySelector('.add-comment-form');
-
-addCommentForm.addEventListener('submit', async (e) => {          
+const addCommentForm = async (e) => {          
     e.preventDefault();
   
-    const formData = new FormData(addCommentForm);
+    const formData = new FormData(e.currentTarget);
   
     const result = await fetch('/api/comment/new', {
       method: 'POST',
-      body: formData,
-      header: { 'Content-Type': 'multipart/form-data' }
+      body: JSON.stringify(Object.fromEntries(formData)),
+      headers: { 'Content-Type': 'application/json' }
     });
+
+    const response = await result.json();
+
+    const newWindow = window.location.pathname;
+    const path = newWindow.split('/', 2).pop();
+    console.log(path);
   
     if (result.ok) {
-      console.log('200');
       document.location.replace('/');
     } else {
-      alert('Failed to sign up.');
+      console.log(response);
     }  
-});
+};
+
+document
+  .querySelector('.add-comment-form')
+  .addEventListener('submit', addCommentForm);

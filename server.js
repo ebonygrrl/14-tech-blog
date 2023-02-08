@@ -31,7 +31,9 @@ const sess = {
   secret: 'process.env.SESSION_SECRET', 
   resave: false,
   saveUninitialized: true,
-  cookie: {}, //{ maxAge: 3600000 },
+  cookie: {
+    maxAge: 30 * 86400000, // 30 * (24 * 60 * 60 * 1000) = 30 * 86400000 => session is stored 30 days
+  }, //{ maxAge: 3600000 },
   store: myStore
 };
 
