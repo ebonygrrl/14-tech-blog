@@ -7,3 +7,10 @@
                             </p>
                         </div>
                     </div>
+
+                    {{> add-comment}}
+
+                    <!-- view comments -->
+                    {{#each userComment as |comment|}}
+                    {{> comments}}
+                    {{/each}}

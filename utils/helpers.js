@@ -7,4 +7,7 @@ module.exports = {
       new Date(date).getFullYear()
     }`;
   },
+  equal: (a,b, options) => {
+    return (a==b)?options.fn(this):options.inverse(this);
+  }
 };

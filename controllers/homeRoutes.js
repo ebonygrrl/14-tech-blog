@@ -3,28 +3,22 @@ const { User, Post, Comments } = require('../models');
 const { Op } = require('sequelize');
 const withAuth = require('../utils/auth');
 
-// NOTE: ADD DATA ATTRIBUTE TO HANDLEBARS TO STORE POST ID. ADD VARIABLE TO RES.RENDER.
-
 // home page
 router.get('/', async (req, res) => {
-    // console.log(req.session.loggedIn);
 
     await Post.findAll({
         include: [
-            { model: User },
-            { model: Comments }
+            { model: User }
         ],
         order: [['created_at', 'DESC']]
     })
     .then(async data => {
-        // console.log(data);
         const posts = data.map( post => post.get({ plain: true }) );
-        // console.log(posts);
         const user = await User.findOne({
             where: posts.user_id, // match post user id to user table id
             attributes: { exclude: ['password'] }
         });
-        // console.log(user.username);
+        
         res.render('home', {title: 'Home | The Tech Blog', loggedIn: req.session.loggedIn, posts, user});
     })
     .catch(err => {
@@ -92,9 +86,15 @@ router.get('/dashboard/post/:id/edit', withAuth, (req, res) => {
 router.get('/post/:id', withAuth, async (req, res) => {
     // post.findone by id
     //console.log(req.params.id);
-    await Post.findByPk(req.params.id)
+    await Post.findOne({
+        where: {id: req.params.id},
+        include: [
+            { model: User },
+            { model: Comments }
+        ],
+    })
     .then(async data => {
-        // console.log(data);
+        // console.log('POST DATA: ', data);
         const post = {
             pid: req.params.id,
             userId: data.id,
@@ -103,14 +103,22 @@ router.get('/post/:id', withAuth, async (req, res) => {
             time: data.created_at
         };
         
-        console.log(post);
+        //console.log(post);
         // const posts = data.map( post => post.get({ plain: true }) );
         const user = await User.findOne({
             where: data.user_id, // match post user id to user table id
             attributes: { exclude: ['password'] }
         });
-        console.log(user.username);
-        res.render('add-comment', {title: `${post.postTitle} | The Tech Blog`, loggedIn: req.session.loggedIn, post, user: user.username});
+        const userComments = await Comments.findAll({
+            where: data.post_id,
+            include: [
+                { model: User }
+            ],
+            order: [['created_at', 'DESC']]
+        }); 
+        const userComment = userComments.map( comment => comment.get({ plain: true }) );
+        console.log(userComment);
+        res.render('single-post', {title: `${post.postTitle} | The Tech Blog`, loggedIn: req.session.loggedIn, post, user: user.username, userComment});
     })
     .catch(err => {
         console.log(err);

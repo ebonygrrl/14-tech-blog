@@ -15,7 +15,7 @@ const addCommentForm = async (e) => {
     const response = await result.json();
   
     if (result.ok) {
-      //document.location.replace('/');
+      document.location.replace('/view-comments');
     } else {
       console.log(response);
     }  
