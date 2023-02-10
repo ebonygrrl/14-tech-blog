@@ -3,7 +3,7 @@ const { User, Post, Comments } = require('../../models');
 
 // create new comment
 router.post('/new', async (req, res) => {
-  console.log(req.body, 'break', req.session);
+  // console.log(req.body, 'break', req.session);
 
   const comment = {
     post_id: req.body.post_id,
@@ -12,7 +12,7 @@ router.post('/new', async (req, res) => {
   };
   await Comments.create(comment)
   .then((data) => {
-    console.log(data)
+    // console.log(data)
     res.json(data);
   })
   .catch((err) => {

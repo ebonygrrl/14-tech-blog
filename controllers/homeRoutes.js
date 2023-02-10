@@ -96,11 +96,14 @@ router.get('/post/:id', withAuth, async (req, res) => {
     .then(async data => {
         // console.log(data);
         const post = {
+            pid: req.params.id,
             userId: data.id,
             postTitle: data.title,
             content: data.content,
             time: data.created_at
         };
+        
+        console.log(post);
         // const posts = data.map( post => post.get({ plain: true }) );
         const user = await User.findOne({
             where: data.user_id, // match post user id to user table id
