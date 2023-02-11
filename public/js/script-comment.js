@@ -2,7 +2,7 @@ const addCommentForm = async (e) => {
     e.preventDefault();    
 
     const postId = document.querySelector('.single').dataset.post;
-    console.log(postId);
+    //console.log(postId);
   
     const addComment = document.querySelector('#comment').value;
   
@@ -15,7 +15,7 @@ const addCommentForm = async (e) => {
     const response = await result.json();
   
     if (result.ok) {
-      document.location.replace('/view-comments');
+      document.location.replace(`/post/${postId}`);
     } else {
       console.log(response);
     }  

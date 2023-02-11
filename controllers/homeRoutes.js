@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { User, Post, Comments } = require('../models');
-const { Op } = require('sequelize');
 const withAuth = require('../utils/auth');
 
 // home page
@@ -78,23 +77,14 @@ router.get('/dashboard/post/new', withAuth, (req, res) => {
 });
 
 // edit post
-router.get('/dashboard/post/:id/edit', withAuth, (req, res) => {
-    res.render('edit-post', {title: 'Edit Post | The Tech Blog', loggedIn: req.session.loggedIn});
-});
-
-// comment on post
-router.get('/post/:id', withAuth, async (req, res) => {
-    // post.findone by id
-    //console.log(req.params.id);
+router.get('/post/:id/edit', withAuth, async (req, res) => {
     await Post.findOne({
         where: {id: req.params.id},
         include: [
-            { model: User },
-            { model: Comments }
+            { model: User }
         ],
     })
     .then(async data => {
-        // console.log('POST DATA: ', data);
         const post = {
             pid: req.params.id,
             userId: data.id,
@@ -104,13 +94,45 @@ router.get('/post/:id', withAuth, async (req, res) => {
         };
         
         //console.log(post);
-        // const posts = data.map( post => post.get({ plain: true }) );
+        const user = await User.findOne({
+            where: data.user_id, // match post user id to user table id
+            attributes: { exclude: ['password'] }
+        });
+
+        res.render('edit-post', {title: 'Edit Post | The Tech Blog', loggedIn: req.session.loggedIn, post});
+        //res.render('single-post', {title: `${post.postTitle} | The Tech Blog`, loggedIn: req.session.loggedIn, post, user: user.username, userComment});
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+// comment on post
+router.get('/post/:id', withAuth, async (req, res) => {
+    await Post.findOne({
+        where: {id: req.params.id},
+        include: [
+            { model: User },
+            { model: Comments }
+        ],
+    })
+    .then(async data => {
+        const post = {
+            pid: req.params.id,
+            userId: data.id,
+            postTitle: data.title,
+            content: data.content,
+            time: data.created_at
+        };
+        
+        //console.log(post);
         const user = await User.findOne({
             where: data.user_id, // match post user id to user table id
             attributes: { exclude: ['password'] }
         });
         const userComments = await Comments.findAll({
-            where: data.post_id,
+            where: {post_id: req.params.id},
             include: [
                 { model: User }
             ],
@@ -118,6 +140,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
         }); 
         const userComment = userComments.map( comment => comment.get({ plain: true }) );
         console.log(userComment);
+
         res.render('single-post', {title: `${post.postTitle} | The Tech Blog`, loggedIn: req.session.loggedIn, post, user: user.username, userComment});
     })
     .catch(err => {

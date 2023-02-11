@@ -24,10 +24,15 @@ router.post('/new', async (req, res) => {
 });
 
 // update post
-router.put('/:id/update', async (req, res) => {
-  // get user id from session
+router.put('/:id', async (req, res) => {
+  //console.log(req.body, req.params);
 
-  await Post.create(req.body)
+  const post = {
+    title: req.body.title,
+    content: req.body.content
+};
+
+  await Post.update(post, {where: {id: req.params.id}})
   .then((data) => {
     console.log(data)
     res.json(data);
@@ -39,7 +44,7 @@ router.put('/:id/update', async (req, res) => {
 });
 
 // delete post
-router.post('/:id/delete', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   // get user id from session
 
   await Post.create(req.body)

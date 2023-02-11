@@ -10,7 +10,9 @@
 
                     {{> add-comment}}
 
+                    {{#if userComment}}
                     <!-- view comments -->
                     {{#each userComment as |comment|}}
                     {{> comments}}
                     {{/each}}
+                    {{/if}}
