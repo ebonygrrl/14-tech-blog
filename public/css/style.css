@@ -34,10 +34,15 @@ footer {
 
 footer a {
   color: var(--cultured);
-  height: 60px;
+  text-decoration: underline;
+}
+
+footer p {
+  margin: 0;
 }
 
 h1 {
+  margin: 0.5rem;
   font-size: 2rem;
   white-space: nowrap;
 }
@@ -46,11 +51,6 @@ h2 {
   font-size: 1.25rem;
   line-height: normal;
   margin-bottom: 0;
-}
-
-h2::after {
-  content: '';
-  clear: both;
 }
 
 h2 a:hover {
@@ -62,8 +62,11 @@ header {
 }
 
 main {
-  min-height: calc(100% - 206px);
-  margin-bottom: -60px;
+  min-height: calc(100% - 172px);
+}
+
+main p a {
+  color: var(--amaranthred);
 }
 
 /* bootstrap mod */
@@ -71,6 +74,7 @@ main {
   display: block;
   width: 100%;
 }
+
 .btn.btn-primary {
   background-color: var(--amaranthred);
   border: none;
@@ -97,8 +101,9 @@ main {
   color: var(--cultured);
 }
 
-.navbar {
+nav.navbar {
   padding: 0;
+  flex-wrap: wrap-reverse;
 }
 
 ul.navbar-nav {
@@ -107,11 +112,17 @@ ul.navbar-nav {
 }
 
 .nav-item .nav-link {
+  padding: 0.5rem 1.25rem;
   color: var(--cultured);
 }
 
 .nav-item .nav-link:hover {
+  color: var(--spacecadet);
+}
+
+.nav-item .nav-link.active {
   background-color: var(--spacecadet);
+  color: var(--cultured);
 }
 
 /* oo classes */
@@ -124,20 +135,12 @@ ul.navbar-nav {
   text-decoration: underline;
 }
 
+.message {
+  font-size: 0.9rem;
+  color: var(--amaranthred);
+}
+
 /* media queries */
-@media screen and (min-width: 768px) { 
-  /* ul.navbar-nav {
-    justify-content: flex-end !important;
-  }
-
-  .nav-item .nav-link {
-    padding: 2rem;
-  } */
-}
-
-@media screen and (max-width: 767px) {
-}
-
 @media screen and (max-width: 640px) {
   body {
     min-width: 375px;
@@ -146,8 +149,4 @@ ul.navbar-nav {
   .container {
     width: 90%;
   }
-
-  /* ul.navbar-nav {
-    padding-top: 0;
-  } */
 }

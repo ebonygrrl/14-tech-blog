@@ -5,11 +5,11 @@
                         <div class="card-body update" data-post="{{post.pid}}">
                             <form class="form edit-post-form">
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="post-title" type="text" name="title" value="{{post.postTitle}}">
+                                    <input class="form-control post-title" type="text" name="title" value="{{post.postTitle}}">
                                     <label for="title">Title</label>
                                 </div>
                                 <div class="mb-3">
-                                    <span class="form-control" name="content" role="textbox" contenteditable>{{post.content}}</span>
+                                    <span class="form-control post-content" name="content" role="textbox" contenteditable>{{post.content}}</span>
                                 </div>
                                 <button class="btn btn-primary btn-lg btn-block mb-3" id="submit-update-post" type="submit">Update Post</button>
                                 <button class="btn btn-secondary btn-lg btn-block" id="delete-post">Delete</button>

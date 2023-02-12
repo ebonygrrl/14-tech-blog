@@ -1,13 +1,13 @@
 const editPostForm = async (e) => {          
     e.preventDefault();      
 
-    const postId = document.querySelector('.update').dataset.post;
-  
-    const formData = new FormData(e.currentTarget);
+    const postId = document.querySelector('.update').dataset.post;  
+    const title = document.querySelector('.post-title').value.trim();
+    const content = document.querySelector('.post-content').textContent.trim();
   
     const result = await fetch(`/api/post/${postId}`, {
         method: 'PUT',
-        body: JSON.stringify(Object.fromEntries(formData)),
+        body: JSON.stringify({title, content}),
         headers: { 'Content-Type': 'application/json' }
     });
 

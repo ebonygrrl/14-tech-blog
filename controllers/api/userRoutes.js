@@ -57,6 +57,7 @@ router.post('/login', async (req, res) => {
     });
 });
 
+// 
 router.delete('/logout', (req, res) => {
   if (req.session) {
     req.session.destroy(err => {
@@ -69,29 +70,10 @@ router.delete('/logout', (req, res) => {
   } else {
     res.end()
   }
-})
-
-// // user logout
-// router.post('/logout', (req, res) => {
-//   // When the user logs out, destroy the session
-//   if (req.session.loggedIn) {
-//     req.session.destroy(() => {
-//       res.status(204).end();
-//       res.redirect('/');
-//     });
-//   } else {
-//     res.status(404).end();
-//   }
-// });
-
-// // logout
-// router.get('/logout', (req, res) => {
-//     req.session.destroy();
-//     res.redirect('/');
-// });
+});
 
 // wildcard
-router.get('*', (req, res) => {
+router.get('/*', (req, res) => {
     res.redirect('/');
 });
 

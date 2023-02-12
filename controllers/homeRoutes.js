@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 
 // sign up page
 router.get('/signup', (req, res) => {
-    if (req.session.logged_in) {
+    if (req.session.loggedIn) {
         res.redirect('/');
         return;
     }
@@ -36,12 +36,12 @@ router.get('/signup', (req, res) => {
 });
 
 // login page
-router.get('/login', (req, res) => {
-    if (req.session.logged_in) {
+router.get('/login', async (req, res) => {
+    if (req.session.loggedIn) {
         res.redirect('/');
         return;
     }
-    res.render('login', {title: 'Login | The Tech Blog'});
+    res.render('partials/login', {title: 'Login | The Tech Blog'});
 });
 
 // all post dashboard
@@ -63,7 +63,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
             attributes: { exclude: ['password'] }
         });
         // console.log(user.username);
-        res.render('dashboard', {title: 'Dashboard | The Tech Blog', pageTitle: 'Dashboard', loggedIn: req.session.loggedIn, posts, user});
+        res.render('dashboard', {title: 'Dashboard | The Tech Blog', pageTitle: 'Your Dashboard', loggedIn: req.session.loggedIn, posts, user});
     })
     .catch(err => {
         console.log(err);
@@ -73,7 +73,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 // new post
 router.get('/dashboard/post/new', withAuth, (req, res) => {
-    res.render('new-post', {title: 'Create New Post | The Tech Blog', pageTitle: 'Dashboard', loggedIn: req.session.loggedIn});
+    res.render('new-post', {title: 'Create New Post | The Tech Blog', pageTitle: 'Your Dashboard', loggedIn: req.session.loggedIn});
 });
 
 // edit post
@@ -100,7 +100,6 @@ router.get('/post/:id/edit', withAuth, async (req, res) => {
         });
 
         res.render('edit-post', {title: 'Edit Post | The Tech Blog', loggedIn: req.session.loggedIn, post});
-        //res.render('single-post', {title: `${post.postTitle} | The Tech Blog`, loggedIn: req.session.loggedIn, post, user: user.username, userComment});
     })
     .catch(err => {
         console.log(err);
@@ -150,7 +149,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
 });
 
 // view comments on post
-router.get('/dashboard/post/:id', withAuth, async (req, res) => {
+router.get('/post/:id/comments', async (req, res) => {
     await Post.findOne({
         where: {id: req.params.id},
         include: [
@@ -165,9 +164,7 @@ router.get('/dashboard/post/:id', withAuth, async (req, res) => {
             postTitle: data.title,
             content: data.content,
             time: data.created_at
-        };
-        
-        //console.log(post);
+        };        
         const user = await User.findOne({
             where: data.user_id, // match post user id to user table id
             attributes: { exclude: ['password'] }
@@ -182,7 +179,7 @@ router.get('/dashboard/post/:id', withAuth, async (req, res) => {
         const userComment = userComments.map( comment => comment.get({ plain: true }) );
         console.log(userComment);
 
-        res.render('single-post', {title: `${post.postTitle} | The Tech Blog`, pageTitle: 'Dashboard', loggedIn: req.session.loggedIn, post, user: user.username, userComment, viewComments: true});
+        res.render('single-post', {title: `${post.postTitle} | The Tech Blog`, loggedIn: req.session.loggedIn, post, user: user.username, userComment, viewComments: true});
     })
     .catch(err => {
         console.log(err);
@@ -190,9 +187,8 @@ router.get('/dashboard/post/:id', withAuth, async (req, res) => {
     });
 });
 
-// logout
-router.get('/logout', (req, res) => {
-    req.session.destroy();
+// wildcard
+router.get('/*', (req, res) => {
     res.redirect('/');
 });
 

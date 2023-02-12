@@ -1,9 +1,7 @@
 const addCommentForm = async (e) => {          
     e.preventDefault();    
 
-    const postId = document.querySelector('.single').dataset.post;
-    //console.log(postId);
-  
+    const postId = document.querySelector('.single').dataset.post;  
     const addComment = document.querySelector('#comment').value;
   
     const result = await fetch('/api/comment/new', {
@@ -15,7 +13,7 @@ const addCommentForm = async (e) => {
     const response = await result.json();
   
     if (result.ok) {
-      document.location.replace(`/dashboard/post/${postId}`);
+      document.location.replace(`/post/${postId}/comments`);
     } else {
       console.log(response);
     }  
