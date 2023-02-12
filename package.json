@@ -1,0 +1,34 @@
+{
+  "name": "14-tech-blog",
+  "version": "1.0.0",
+  "description": "A CMS-style blog site similar to a Wordpress site, where developers can publish their blog posts and comment on other developers’ posts as well.",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm run test",
+    "start": "node server.js",
+    "seed": "node seeds/index.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebonygrrl/14-tech-blog.git"
+  },
+  "author": "Tori Booker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ebonygrrl/14-tech-blog/issues"
+  },
+  "homepage": "https://github.com/ebonygrrl/14-tech-blog#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "connect-session-sequelize": "^7.1.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.7",
+    "express-session": "^1.17.3",
+    "handlebars": "^4.7.7",
+    "mysql2": "^3.0.1",
+    "sequelize": "^6.28.0",
+    "sqlite3": "^5.1.4"
+  }
+}

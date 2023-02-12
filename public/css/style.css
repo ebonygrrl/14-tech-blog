@@ -1,0 +1,152 @@
+/* variables */
+:root {
+  --amaranthred: #D90429;
+  --cultured: #EDF2F4;
+  --manatee: #8D99AE;
+  --spacecadet: #2B2D42;
+  --black: #333;
+}
+
+/* element styles */
+a {
+  color: var(--cultured);
+  text-decoration: none;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: normal;
+  background-color: var(--cultured);
+}
+
+footer {
+  background-color: var(--black);
+  color: var(--cultured);
+  padding: 1rem 0 .5rem;
+}
+
+footer a {
+  color: var(--cultured);
+  text-decoration: underline;
+}
+
+footer p {
+  margin: 0;
+}
+
+h1 {
+  margin: 0.5rem;
+  font-size: 2rem;
+  white-space: nowrap;
+}
+
+h2 {
+  font-size: 1.25rem;
+  line-height: normal;
+  margin-bottom: 0;
+}
+
+h2 a:hover {
+  text-decoration: underline;
+}
+
+header {
+  background-color: var(--amaranthred);
+}
+
+main {
+  min-height: calc(100% - 172px);
+}
+
+main p a {
+  color: var(--amaranthred);
+}
+
+/* bootstrap mod */
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn.btn-primary {
+  background-color: var(--amaranthred);
+  border: none;
+}
+
+.btn.btn-primary:active {
+  background-color: var(--spacecadet);
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.container {
+  width: 1000px;
+}
+
+.card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  background-color: var(--spacecadet);
+  color: var(--cultured);
+}
+
+nav.navbar {
+  padding: 0;
+  flex-wrap: wrap-reverse;
+}
+
+ul.navbar-nav {
+  align-items: center;
+  flex-direction: row;
+}
+
+.nav-item .nav-link {
+  padding: 0.5rem 1.25rem;
+  color: var(--cultured);
+}
+
+.nav-item .nav-link:hover {
+  color: var(--spacecadet);
+}
+
+.nav-item .nav-link.active {
+  background-color: var(--spacecadet);
+  color: var(--cultured);
+}
+
+/* oo classes */
+.card-header span {
+  font-size: 0.7rem;
+}
+
+.creds {
+  color: var(--amaranthred);
+  text-decoration: underline;
+}
+
+.message {
+  font-size: 0.9rem;
+  color: var(--amaranthred);
+}
+
+/* media queries */
+@media screen and (max-width: 640px) {
+  body {
+    min-width: 375px;
+  }
+
+  .container {
+    width: 90%;
+  }
+}
