@@ -1,11 +1,9 @@
-                    <!-- / | View All Posts -->
                     <div class="card mb-3" data-post="{{id}}">
                         <div class="card-header">
                             {{#if loggedIn}}
-                            <h2><a href="/post/{{id}}">{{title}}</a> <span>Posted by {{user.username}} on {{format_date created_at}}</span></h2>
-                            <div class="user-icons"><a href="/post/{{id}}/edit"><i class="bi bi-pencil-fill"></i></a></div>
+                            <h2><a href="/post/{{id}}">{{title}}</a></h2> <span>Posted by {{user.username}} on {{format_date created_at}}</span>
                             {{else}}                            
-                            <h2>{{title}} <span>Posted by {{user.username}} on {{format_date created_at}}</span></h2>
+                            <h2>{{title}}</h2> <span>Posted by {{user.username}} on {{format_date created_at}}</span>
                             {{/if}}
                         </div>
                         <div class="card-body">

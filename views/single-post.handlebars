@@ -8,10 +8,11 @@
                         </div>
                     </div>
 
+                    {{#if addComment}}
                     {{> add-comment}}
+                    {{/if}}
 
-                    {{#if userComment}}
-                    <!-- view comments -->
+                    {{#if viewComments}}
                     {{#each userComment as |comment|}}
                     {{> comments}}
                     {{/each}}

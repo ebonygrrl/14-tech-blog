@@ -1,6 +1,7 @@
-                    {{#each posts as |post|}}
-                    {{> posts loggedIn=true}}
-                    {{/each}}
+                    <div class="text-center mb-3">
+                        <a href="/dashboard/post/new"><button class="btn btn-primary btn-lg btn-">+ New Post</button></a>
+                    </div>
 
-                    <!-- Your Dashboard | Home -->
-                    <a href="/dashboard/post/new"><button class="btn btn-primary btn-lg">+ New Post</button></a>
+                    {{#each posts as |post|}}
+                    {{> db-posts}}
+                    {{/each}}

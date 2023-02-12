@@ -63,7 +63,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
             attributes: { exclude: ['password'] }
         });
         // console.log(user.username);
-        res.render('dashboard', {title: 'Dashboard | The Tech Blog', loggedIn: req.session.loggedIn, posts, user});
+        res.render('dashboard', {title: 'Dashboard | The Tech Blog', pageTitle: 'Dashboard', loggedIn: req.session.loggedIn, posts, user});
     })
     .catch(err => {
         console.log(err);
@@ -73,7 +73,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 // new post
 router.get('/dashboard/post/new', withAuth, (req, res) => {
-    res.render('new-post', {title: 'Create New Post | The Tech Blog', loggedIn: req.session.loggedIn});
+    res.render('new-post', {title: 'Create New Post | The Tech Blog', pageTitle: 'Dashboard', loggedIn: req.session.loggedIn});
 });
 
 // edit post
@@ -108,7 +108,7 @@ router.get('/post/:id/edit', withAuth, async (req, res) => {
     });
 });
 
-// comment on post
+// add comment on post
 router.get('/post/:id', withAuth, async (req, res) => {
     await Post.findOne({
         where: {id: req.params.id},
@@ -141,7 +141,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
         const userComment = userComments.map( comment => comment.get({ plain: true }) );
         console.log(userComment);
 
-        res.render('single-post', {title: `${post.postTitle} | The Tech Blog`, loggedIn: req.session.loggedIn, post, user: user.username, userComment});
+        res.render('single-post', {title: `${post.postTitle} | The Tech Blog`, loggedIn: req.session.loggedIn, post, user: user.username, userComment, addComment: true});
     })
     .catch(err => {
         console.log(err);
@@ -149,9 +149,51 @@ router.get('/post/:id', withAuth, async (req, res) => {
     });
 });
 
-// delete post
-router.get('/dashboard/:id/delete', withAuth, (req, res) => {
-    res.render({loggedIn: req.session.loggedIn});
+// view comments on post
+router.get('/dashboard/post/:id', withAuth, async (req, res) => {
+    await Post.findOne({
+        where: {id: req.params.id},
+        include: [
+            { model: User },
+            { model: Comments }
+        ],
+    })
+    .then(async data => {
+        const post = {
+            pid: req.params.id,
+            userId: data.id,
+            postTitle: data.title,
+            content: data.content,
+            time: data.created_at
+        };
+        
+        //console.log(post);
+        const user = await User.findOne({
+            where: data.user_id, // match post user id to user table id
+            attributes: { exclude: ['password'] }
+        });
+        const userComments = await Comments.findAll({
+            where: {post_id: req.params.id},
+            include: [
+                { model: User }
+            ],
+            order: [['created_at', 'DESC']]
+        }); 
+        const userComment = userComments.map( comment => comment.get({ plain: true }) );
+        console.log(userComment);
+
+        res.render('single-post', {title: `${post.postTitle} | The Tech Blog`, pageTitle: 'Dashboard', loggedIn: req.session.loggedIn, post, user: user.username, userComment, viewComments: true});
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+// logout
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
 });
 
 module.exports = router;

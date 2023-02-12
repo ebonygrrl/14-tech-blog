@@ -1,4 +1,3 @@
-                    <!-- Your Dashboard | Update Post -->
                     <div class="card">
                         <div class="card-header">
                             <h2>Edit Post</h2>
@@ -9,12 +8,11 @@
                                     <input class="form-control" id="post-title" type="text" name="title" value="{{post.postTitle}}">
                                     <label for="title">Title</label>
                                 </div>
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" id="post-textarea" type="textarea" name="content" value="{{post.content}}">
-                                    <label for="content">Content</label>
+                                <div class="mb-3">
+                                    <span class="form-control" name="content" role="textbox" contenteditable>{{post.content}}</span>
                                 </div>
-                                <button class="btn btn-primary" id="submit-update-post" type="submit">Update Post</button>
-                                <button class="btn btn-primary" id="delete-post">Delete</button>
+                                <button class="btn btn-primary btn-lg btn-block mb-3" id="submit-update-post" type="submit">Update Post</button>
+                                <button class="btn btn-secondary btn-lg btn-block" id="delete-post">Delete</button>
                             </form>
                         </div>
                     </div>

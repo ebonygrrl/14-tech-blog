@@ -13,7 +13,7 @@ const loginForm = async (e) => {
   const result = await response.json();
 
   if (response.ok) {
-    document.location.replace('/dashboard');
+    document.location.replace('/');
   } else {
     msg.textContent = result.message;
   }

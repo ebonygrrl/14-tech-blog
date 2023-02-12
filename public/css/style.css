@@ -1,6 +1,6 @@
 /* variables */
 :root {
-  --amaranthred: ##D90429;
+  --amaranthred: #D90429;
   --cultured: #EDF2F4;
   --manatee: #8D99AE;
   --spacecadet: #2B2D42;
@@ -8,6 +8,11 @@
 }
 
 /* element styles */
+a {
+  color: var(--cultured);
+  text-decoration: none;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -21,21 +26,113 @@ body {
   background-color: var(--cultured);
 }
 
+footer {
+  background-color: var(--black);
+  color: var(--cultured);
+  padding: 1rem 0 .5rem;
+}
+
+footer a {
+  color: var(--cultured);
+  height: 60px;
+}
+
+h1 {
+  font-size: 2rem;
+  white-space: nowrap;
+}
+
 h2 {
-  font-size: 22px;
+  font-size: 1.25rem;
   line-height: normal;
   margin-bottom: 0;
 }
 
+h2::after {
+  content: '';
+  clear: both;
+}
+
+h2 a:hover {
+  text-decoration: underline;
+}
+
+header {
+  background-color: var(--amaranthred);
+}
+
+main {
+  min-height: calc(100% - 206px);
+  margin-bottom: -60px;
+}
+
 /* bootstrap mod */
+.btn-block {
+  display: block;
+  width: 100%;
+}
+.btn.btn-primary {
+  background-color: var(--amaranthred);
+  border: none;
+}
+
+.btn.btn-primary:active {
+  background-color: var(--spacecadet);
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
 .container {
   width: 1000px;
 }
 
+.card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  background-color: var(--spacecadet);
+  color: var(--cultured);
+}
+
+.navbar {
+  padding: 0;
+}
+
+ul.navbar-nav {
+  align-items: center;
+  flex-direction: row;
+}
+
+.nav-item .nav-link {
+  color: var(--cultured);
+}
+
+.nav-item .nav-link:hover {
+  background-color: var(--spacecadet);
+}
+
 /* oo classes */
+.card-header span {
+  font-size: 0.7rem;
+}
+
+.creds {
+  color: var(--amaranthred);
+  text-decoration: underline;
+}
 
 /* media queries */
 @media screen and (min-width: 768px) { 
+  /* ul.navbar-nav {
+    justify-content: flex-end !important;
+  }
+
+  .nav-item .nav-link {
+    padding: 2rem;
+  } */
 }
 
 @media screen and (max-width: 767px) {
@@ -45,4 +142,12 @@ h2 {
   body {
     min-width: 375px;
   }
+
+  .container {
+    width: 90%;
+  }
+
+  /* ul.navbar-nav {
+    padding-top: 0;
+  } */
 }

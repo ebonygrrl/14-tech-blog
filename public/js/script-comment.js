@@ -15,7 +15,7 @@ const addCommentForm = async (e) => {
     const response = await result.json();
   
     if (result.ok) {
-      document.location.replace(`/post/${postId}`);
+      document.location.replace(`/dashboard/post/${postId}`);
     } else {
       console.log(response);
     }  

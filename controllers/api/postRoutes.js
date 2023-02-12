@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post } = require('../../models');
+const { Post, Comments } = require('../../models');
 
 // create new post
 router.post('/new', async (req, res) => {
@@ -45,17 +45,9 @@ router.put('/:id', async (req, res) => {
 
 // delete post
 router.delete('/:id', async (req, res) => {
-  // get user id from session
-
-  await Post.create(req.body)
-  .then((data) => {
-    console.log(data)
-    res.json(data);
-  })
-  .catch((err) => {
-    res.status(400).json(err);
-    console.log(err);
-  });
+  const deleteComments = await Comments.destroy({where: {post_id: req.params.id}});
+  const deletePost = await Post.destroy({where: {id: req.params.id}});  
+  res.status(200).json(deletePost);
 });
 
 module.exports = router;
